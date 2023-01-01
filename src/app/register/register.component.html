@@ -1,0 +1,88 @@
+<div class="main-div"> 
+    <mat-card class="main-card">
+        <mat-card-header>
+            <mat-card-title>
+                <h1>Enregistrement</h1>
+            </mat-card-title>
+        </mat-card-header>
+        <img  mat-card-md-image id="profile-img"
+            src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+            
+        <mat-card-content> 
+            <form *ngIf="!isSuccessful" 
+                name="form"
+                #f="ngForm"
+                (ngSubmit)="f.form.valid && onSubmit()"
+                novalidate>
+                
+                <div class="form-input">
+                    <mat-form-field hintLabel="Max 20 caracteres" appearance="fill">
+                        <mat-label for="inputName">Username</mat-label>
+                        <input matInput 
+                            #usernameInput
+                            type="text"
+                            id="inputName"
+                            class="form-control"
+                            name="username" 
+                            placeholder="xXdimitriXx" 
+                            [(ngModel)]="form.username"
+                            #username="ngModel"
+                            required
+                            autofocus
+                            minlength="3"
+                            maxlength="20">
+                            <mat-hint align="end">{{usernameInput.value.length}}/20</mat-hint>
+                    </mat-form-field>
+
+                </div>
+
+                <div class="form-input">
+                    <mat-form-field appearance="fill">
+                        <mat-label for="inputEmail">Email</mat-label>
+                        <input matInput type="email"
+                            id="inputEmail"
+                            name="email"
+                            placeholder="xXdimitriXx@yo.fr"
+                            [(ngModel)]="form.email"
+                            #email="ngModel"
+                            required>
+                    </mat-form-field>
+
+                </div>
+
+                <div class="form-input">
+                    <mat-form-field hintLabel="Min 9 caracteres" appearance="fill">
+                        <mat-label for="inputPassword">Password</mat-label>
+                        <input matInput
+                            #passwordInput
+                            [type]="hidePass ? 'password' : 'text'"
+                            id="inputPassword"
+                            name="password"
+                            [(ngModel)]="form.password" 
+                            #password="ngModel" 
+                            required
+                            minlength="9">
+
+                        <button mat-icon-button matSuffix (click)="hidePass = !hidePass" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePass">
+                            <mat-icon>{{hidePass ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+
+                        <mat-hint align="end">{{passwordInput.value.length}}/9</mat-hint>
+                    </mat-form-field>
+                </div>
+
+                <div>
+                    <button mat-button color="primary" type="submit">Register</button>
+
+                    <div *ngIf="f.submitted && isSignUpFailed">
+                        <strong>Registration failed!</strong> Please try again. {{errorMessage}}
+                    </div>
+
+                </div>
+            </form>
+            <div *ngIf="isSuccessful">
+                <strong>Registration successful!</strong> Please login.
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

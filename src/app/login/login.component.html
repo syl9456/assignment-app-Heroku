@@ -1,0 +1,73 @@
+<div class="main-div"> 
+    <mat-card class="main-card">
+        <mat-card-header>
+            <mat-card-title>
+                <h1>Connexion</h1>
+            </mat-card-title>
+        </mat-card-header>
+        <img mat-card-md-image id="profile-img"
+            src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+
+        <mat-card-content>
+            <form *ngIf="!isLoggedIn"
+            name="form"
+            #f="ngForm"
+            (ngSubmit)="f.form.valid && onSubmit()"
+            novalidate>
+
+                <div lass="form-input">
+                    <mat-form-field hintLabel="Max 20 caracteres" appearance="fill">
+                        <mat-label for="username">Username</mat-label>
+                        <input matInput 
+                        #usernameInput 
+                        type="text"
+                        class="form-control"
+                        placeholder="xXdimitriXx"
+                        name="username"
+                        required
+                        [(ngModel)]="form.username"
+                        #username="ngModel"
+                        minlength="3"
+                        maxlength="20">
+                        <mat-hint align="end">{{usernameInput.value.length}}/20</mat-hint>
+                    </mat-form-field>
+                </div>
+
+                <div lass="form-input">
+                    <mat-form-field hintLabel="Min 9 caracteres" appearance="fill">
+                        <mat-label for="password">Password</mat-label>
+                        <input 
+                            matInput
+                            [type]="hidePass ? 'password' : 'text'"
+                            #passwordInput
+                            class="form-control"
+                            placeholder="Password"
+                            name="password"
+                            required
+                            [(ngModel)]="form.password"
+                            #password="ngModel"
+                            minlength="9" >
+
+                        <button mat-icon-button matSuffix (click)="hidePass = !hidePass" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePass">
+                            <mat-icon>{{hidePass ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+
+                        <mat-hint align="end">{{passwordInput.value.length}}/9</mat-hint>
+                    </mat-form-field>
+                </div>
+
+                <div>
+                    <button mat-button color="primary" type="submit">Login</button>
+                    <div *ngIf="isLoginFailed && f.submitted">
+                        Login Failed : {{errorMessage}}
+                    </div>
+                </div>
+
+            </form>
+            <div *ngIf="isLoggedIn">
+                Login Successful
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>
+

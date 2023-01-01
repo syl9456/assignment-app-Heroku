@@ -1,0 +1,40 @@
+<main>
+    <div class="main-div"> 
+        <mat-card class="main-card">
+            <mat-card-header>
+                <mat-card-title>
+                    <h1>Liste des devoirs a rendre :</h1>
+                </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <mat-paginator
+                    [length]="totalDocs"
+                    [pageSize]="limit"
+                    [pageSizeOptions]="[5, 10, 25, 100]"
+                    [showFirstLastButtons]="true"
+                    aria-label="Select page"
+                    (page)="handlePageEvent($event)"
+                    >
+                </mat-paginator>
+                
+                <mat-list *ngFor="let a of assignments">
+                    <mat-list-item *ngIf="a.rendu" (click)="assignmentClick(a)" routerLink="/assignment/{{a.id}}" lines="6" class="rendu">
+                            <h1 matLine>{{a.nom}} : {{a.matiere}}</h1>
+                            <mat-icon matListIcon>check</mat-icon>
+                            <span matLine>{{a.dateDeRendu | date}}</span>
+                            <span matLine>Devoir rendu.</span>
+                        <mat-divider></mat-divider>
+                    </mat-list-item>
+
+                    <mat-list-item *ngIf="!a.rendu" (click)="assignmentClick(a)" routerLink="/assignment/{{a.id}}" lines="6" class="nonRendu">
+                        <mat-icon matListIcon >cancel</mat-icon>
+                            <h1 matLine>{{a.nom}} : {{a.matiere}}</h1>
+                            <span matLine>{{a.dateDeRendu | date}}</span>
+                            <span matLine>Devoir non rendu.</span>
+                            <mat-divider></mat-divider>
+                    </mat-list-item>
+                </mat-list>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</main>

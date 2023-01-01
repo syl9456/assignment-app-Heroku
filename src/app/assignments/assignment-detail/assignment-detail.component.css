@@ -1,0 +1,16 @@
+#bottom{
+    display:flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.main-div{
+    height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+  
+.main-card{
+    width:95%;
+}
