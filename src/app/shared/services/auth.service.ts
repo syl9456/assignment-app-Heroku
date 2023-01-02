@@ -3,15 +3,6 @@ import { TokenStorageService } from './token-storage.service';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-//const AUTH_API = 'http://localhost:8020/api_auth/auth/';
-const AUTH_API = 'https://api-auth-heroku.herokuapp.com/api_auth/auth/';
-
-
-const httpOptions = {
-  headers: new HttpHeaders({
-     'Content-Type': 'application/json' 
-  })
-};
 
 @Injectable({
   providedIn: 'root'
@@ -22,19 +13,29 @@ export class AuthService {
   constructor(private http:HttpClient,
               private tokenStorageService:TokenStorageService) { }
 
+  //private AUTH_API = 'http://localhost:8020/api_auth/auth/';
+  private url = 'https://api-auth-heroku.herokuapp.com/api_auth/auth/';
+
+  private httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json' 
+    })
+  };
+
+
   login(credentials): Observable<any> {
-    return this.http.post(AUTH_API + 'signin', {
+    return this.http.post(this.url + 'signin', {
       username: credentials.username,
       password: credentials.password
-    }, httpOptions);
+    }, this.httpOptions);
   }
 
   register(user){
-    return this.http.post(AUTH_API + 'signup', {
+    return this.http.post(this.url + 'signup', {
       username: user.username,
       email: user.email,
       password: user.password
-    }, httpOptions);
+    }, this.httpOptions);
   }
 
   //fonctions qui retourne un booléen si l'utilisateur est admin, user, moderatoeur ou non, en regardant son role

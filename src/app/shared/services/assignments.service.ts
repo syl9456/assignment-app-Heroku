@@ -7,7 +7,6 @@ import { catchError, map, tap }  from 'rxjs/operators';
 import { bdInitialAssignments } from '../data';
 
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -19,31 +18,31 @@ export class AssignmentsService {
   constructor(private loggingService:LoggingService,
               private http:HttpClient) { }
 
-  //url = "http://localhost:8010/api_assignment/assignments"
-  url = "https://api-assignment-mongodb.herokuapp.com/api_assignment/assignments"
-
-
-  private HttpOptions = {
-    headers : new HttpHeaders({
-      'Content Type': 'application/json'
+  private httpOptions = {
+    headers: new HttpHeaders({
+        'Content-Type': 'application/json' 
     })
   }
 
+  //url = "http://localhost:8010/api_assignment/assignments"
+  url = 'https://api-assignment-heroku.herokuapp.com/api_assignment/assignments/'
+
+
   // récupération de la liste des assignments
   getAssignments():Observable<Assignment[]> {
-    return this.http.get<Assignment[]>(this.url);
+    return this.http.get<Assignment[]>(this.url, this.httpOptions);
   }
 
   // récupération d'une page d'assignments
   getAssignmentsPagine(page:number, limit:number):Observable<any> {
-    return this.http.get<any>(this.url + "?page=" + page + "&limit=" + limit);
+    return this.http.get<any>(this.url + "?page=" + page + "&limit=" + limit, this.httpOptions);
   }
 
   // récupération d'un assignment par son id
   getAssignment(id:number) : Observable<Assignment|undefined>{
 
     console.log("det by id id = " + id);
-    return this.http.get<Assignment>(this.url + "/" + id)
+    return this.http.get<Assignment>(this.url + "/" + id, this.httpOptions)
     .pipe(
       map(a => 
       {
@@ -68,19 +67,19 @@ export class AssignmentsService {
 
   // ajout d'un assignment dans la liste des assignments de la classe AssignmentService
   addAssignments(assignment: Assignment): Observable<any> {
-    return this.http.post<Assignment>(this.url, assignment);
+    return this.http.post<Assignment>(this.url, assignment, this.httpOptions);
   }
 
   // effacement d'un assignment par son id
   deleteAssignment(assignment: Assignment): Observable<any>{
 
     let deleteURI =  this.url + "/" + assignment._id;
-    return this.http.delete(deleteURI);
+    return this.http.delete(deleteURI, this.httpOptions);
   }
 
   // mise à jour d'un assignment par son id
   updateAssignment(assignment:Assignment): Observable<any> { 
-    return this.http.put<Assignment>(this.url,assignment);
+    return this.http.put<Assignment>(this.url,assignment, this.httpOptions);
   }
 
   // pour peupler la base de données avec les assignments du tableau bdInitialAssignments
