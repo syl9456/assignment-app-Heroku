@@ -25,7 +25,7 @@ export class AssignmentsService {
   }
 
   //url = "http://localhost:8010/api_assignment/assignments"
-  url = 'https://api-assignment-heroku.herokuapp.com/api_assignment/assignments'
+  url = 'https://api-assignment-render.onrender.com/api_assignment/assignments'
 
 
   // récupération de la liste des assignments

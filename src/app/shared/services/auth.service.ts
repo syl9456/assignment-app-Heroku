@@ -14,7 +14,7 @@ export class AuthService {
               private tokenStorageService:TokenStorageService) { }
 
   //private AUTH_API = 'http://localhost:8020/api_auth/auth/';
-  private url = 'https://api-auth-heroku.herokuapp.com/api_auth/auth/';
+  private url = 'https://api-auth-render.onrender.com/api_auth/auth/';
 
   private httpOptions = {
     headers: new HttpHeaders({
