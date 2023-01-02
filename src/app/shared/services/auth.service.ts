@@ -3,15 +3,20 @@ import { TokenStorageService } from './token-storage.service';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-const AUTH_API = 'http://localhost:8020/api_auth/auth/';
+//const AUTH_API = 'http://localhost:8020/api_auth/auth/';
+const AUTH_API = 'https://api-auth-heroku.herokuapp.com/api_auth/auth/';
+
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  headers: new HttpHeaders({
+     'Content-Type': 'application/json' 
+  })
 };
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthService {
   
   constructor(private http:HttpClient,

@@ -19,7 +19,8 @@ export class AssignmentsService {
   constructor(private loggingService:LoggingService,
               private http:HttpClient) { }
 
-  url = "http://localhost:8010/api_assignment/assignments"
+  //url = "http://localhost:8010/api_assignment/assignments"
+  url = "https://api-assignment-mongodb.herokuapp.com/api_assignment/assignments"
 
 
   private HttpOptions = {
